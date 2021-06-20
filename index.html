@@ -5,12 +5,12 @@
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <meta content="utf-8" http-equiv="encoding">
     <link rel="icon" href="favicon.ico" type="image/x-icon" sizes="16x16">
-    <!-- THIS DOESN'T NEED TO BE UNCOMMENTED -->
-    <!-- <script src='https://cdn1.kongregate.com/javascripts/kongregate_api.js'></script> -->
-    <link rel="icon" href="favicon.ico" type="image/x-icon" sizes="16x16">
-    <!--<script src="Javascript/i18n.js"></script>-->
-    </head>
+
+    <link rel="stylesheet" href="Synergism.css">
+    <script src="./dist/out.js" defer></script>
+</head>
 <body>
+    <div id="transparentBG"></div>
     <div id="confirmationBox">
         <div id="confirmWrapper"> 
             <div id="confirm" tabindex="-1">
@@ -34,11 +34,64 @@
             </div>
         </div>
     </div>
-    <img src="Pictures/Splash/preloader.png" id="preload" alt="" style="width: 100%;">
-    <div id="offlineprogressbar">
-        <p id="offlineTimer" style="color: plum"></p>
-        <p id="progressbardescription" style="color: yellow">Loading Offline Progress...</p>
-        <div id="offlineprogressdone"></div>
+    <img src="Pictures/Splash/base.png" id="preload" alt="" style="width: 100%;">
+    <div id="offlineContainer">
+        <p id="offlineTimer" class="offlineText" style="color: plum"></p>
+        <p id="progressbardescription" class="offlineText" style="color: yellow">Loading Offline Progress...</p>
+
+        <div class='offlineStats'>
+            <div class="offlineStat prestigeunlock" id="offlinePrestigeCountDiv">
+                <img src="Pictures/Prestige.png" alt='' class='offlineStatIcon'>
+                <span id="offlinePrestigeCount" class='offlineStatElement'>Prestige Count: +<span id="offlinePrestigeCountNumber" style="color: cyan;"></span></p>
+            </div>
+            <div class="offlineStat" id="offlinePrestigeTimerDiv">
+                <img src="Pictures/Prestige.png" alt='' class='offlineStatIcon'>
+                <span id="offlinePrestigeTimer" class='offlineStatElement'>Current Prestige Timer: +<span id="offlinePrestigeTimerNumber" style="color: cyan;"></span> seconds</p>
+            </div>
+            <div class="offlineStat prestigeunlock" id="offlineOfferingCountDiv">
+                <img src="Pictures/Offering.png" alt='' class='offlineStatIcon'>
+                <span id="offlineOfferingCount" class='offlineStatElement'>Offerings Generated: <span id="offlineOfferingCountNumber" style="color: orange"></span></p>
+            </div>
+            <div class="offlineStat transcendunlock" id="offlineTranscensionCountDiv">
+                <img src="Pictures/Transcend.png" alt='' class='offlineStatIcon'>
+                <span id="offlineTranscensionCount" class='offlineStatElement'>Transcension Count: +<span id="offlineTranscensionCountNumber" style="color: orchid"></span></p>
+            </div>
+            <div class="offlineStat transcendunlock" id="offlineTranscensionTimerDiv">
+                <img src="Pictures/Transcend.png" alt='' class='offlineStatIcon'>
+                <span id="offlineTranscensionTimer" class='offlineStatElement'>Current Transcension Timer: +<span id="offlineTranscensionTimerNumber" style="color: orchid"></span> seconds</p>
+            </div>
+            <div class='offlineStat reincarnationunlock' id="offlineReincarnationCountDiv">
+                <img src="Pictures/Reincarnate.png" alt='' class='offlineStatIcon'>
+                <span id="offlineReincarnationCount" class='offlineStatElement'>Reincarnation Count: +<span id="offlineReincarnationCountNumber" style="color: limegreen;"></span></p>
+            </div>
+            <div class='offlineStat reincarnationunlock' id="offlineReincarnationTimerDiv">
+                <img src="Pictures/Reincarnate.png" alt='' class='offlineStatIcon'>
+                <span id="offlineReincarnationTimer" class='offlineStatElement'>Current Reincarnation Timer: +<span id="offlineReincarnationTimerNumber" style="color: limegreen;"></span> seconds</p>
+            </div>
+            <div class='offlineStat reincarnationunlock' id="offlineObtainiumCountDiv">
+                <img src="Pictures/Obtainium.png" alt='' class='offlineStatIcon'>
+                <span id="offlineObtainiumCount" class='offlineStatElement'>Obtainium Generated: <span id="offlineObtainiumCountNumber" style="color: pink;"></span></p>
+            </div>
+            <div class='offlineStat chal8' id="offlineAntTimerDiv">
+                <img src="Pictures/crumb.png" alt='' class='offlineStatIcon'>
+                <span id="offlineAntTimer" class='offlineStatElement'>In-Game Ant Sacrifice Timer: +<span id="offlineAntTimerNumber" style="color: red;"></span> seconds</p>
+            </div>
+            <div class='offlineStat chal8' id="offlineRealAntTimerDiv">
+                <img src="Pictures/crumb.png" alt='' class='offlineStatIcon'>
+                <span id="offlineRealAntTimer" class='offlineStatElement'>Real-Life Ant Sacrifice Timer: +<span id="offlineRealAntTimerNumber" style="color: red;"></span> seconds</p>
+            </div>
+            <div class='offlineStat ascendunlock' id="offlineAscensionTimerDiv">
+                <img src="Pictures/questionable.png" alt='' class='offlineStatIcon'>
+                <span id="offlineAscensionTimer" class='offlineStatElement'>Current Ascension Timer: +<span id="offlineAscensionTimerNumber" style="color: gold;"></span> seconds</p>
+            </div>
+            <div class='offlineStat' id="offlineQuarkCountDiv">
+                <img src="Pictures/Quark.png" alt='' class='offlineStatIcon'>
+                <span id="offlineQuarkCount" class='offlineStatElement'>Export Quarks: +<span id="offlineQuarkCountNumber" style="color:goldenrod"></span></span>
+            </div>
+        </div>
+        
+        <button id="exitOffline">That's cool. Take me to the game!</button>
+
     </div>
     <header>
         <div id="ascensionStats">
@@ -87,8 +140,8 @@
                         <div class="prestigeunlock statDisplay" id="offeringDisplay" >1</div>
                     </div>
                     <div class="currencyContainer">
-                        <img class="transcendunlock img quark" src="Pictures/Quark.png" title='Quark' alt="" loading="lazy">
-                        <div class="transcendunlock statDisplay" id="quarkDisplay">1</div>
+                        <img class="img quark" src="Pictures/Quark.png" title='Quark' alt="" loading="lazy">
+                        <div class="statDisplay" id="quarkDisplay">1</div>
                     </div>
                 </div>
                 <div class="currencyRow">
@@ -603,7 +656,7 @@
                         <td><img class="cubeUpgrade19" src="Pictures/Transparent Pics/ConstantUpgrade1.png" id="upg125" alt="" loading="lazy"></td>
                     </tr>
                 </table>
-                <button class="autobuyerToggleButton" id="shoptogglecoin" style="border:2px solid green">Auto: ON</button>
+                <button class="autobuyerToggleButton upgradeToggle" id="coinAutoUpgrade" style="border:2px solid green">Auto: ON</button>
             </div>
             <div>
                 <img class="prestigeunlock" src="Pictures/Diamond.png" alt="" loading="lazy">
@@ -639,7 +692,7 @@
                     </tr>
 
                 </table>
-                <button class="autobuyerToggleButton" id="shoptoggleprestige" style="border:2px solid green">Auto: ON</button>
+                <button class="autobuyerToggleButton upgradeToggle" id="prestigeAutoUpgrade" style="border:2px solid green">Auto: ON</button>
             </div>
             <div>
                 <img class="transcendunlock" src="Pictures/Mythos.png" alt="" loading="lazy">
@@ -674,7 +727,7 @@
                         <td><img class="reincarnationunlock" src="Pictures/Transparent Pics/Mythos20.png" id="upg60" alt="" loading="lazy"></td>
                     </tr>
                 </table>
-                <button class="autobuyerToggleButton" id="shoptoggletranscend" style="border:2px solid green">Auto: ON</button>
+                <button class="autobuyerToggleButton upgradeToggle" id="transcendAutoUpgrade" style="border:2px solid green">Auto: ON</button>
             </div>
             <div>
                 <img class="prestigeunlock" src="Pictures/Generators.png" alt="" loading="lazy">
@@ -709,7 +762,7 @@
                         <td><img id="upg120" class="transcendunlock" src="Pictures/Transparent Pics/GeneratorTwenty.png" alt="" loading="lazy"></td>
                     </tr>
                 </table>
-                <button class="autobuyerToggleButton" id="shoptogglegenerator" style="border:2px solid green">Auto: ON</button>
+                <button class="autobuyerToggleButton upgradeToggle" id="generatorsAutoUpgrade" style="border:2px solid green">Auto: ON</button>
             </div>
             <div>
                 <img class="prestigeunlock" src="Pictures/Automation.png" alt="" loading="lazy">
@@ -778,7 +831,7 @@
                         <td><img class="reinrow4" src="Pictures/Transparent Pics/Particle20.png" id="upg80" alt="" loading="lazy"></td>
                     </tr>
                 </table>
-                <button class="autobuyerToggleButton" id="particleAutoUpgrade" style="border: 2px solid green">Auto: ON</button>
+                <button class="autobuyerToggleButton upgradeToggle" id="reincarnateAutoUpgrade" style="border: 2px solid green">Auto: ON</button>
             </div>
         </div>
 
@@ -832,6 +885,10 @@
                         <td><img class="ascendunlock" src="Pictures/Transparent Pics/ach365.png" id="ach232" alt="" loading="lazy"></td>
                         <td><img class="ascendunlock" src="Pictures/Transparent Pics/ach372.png" id="ach239" alt="" loading="lazy"></td>
                         <td><img class="ascendunlock" src="Pictures/Transparent Pics/ach379.png" id="ach246" alt="" loading="lazy"></td>
+                        <td><img class="chal14 purpleach" src="Pictures/Transparent Pics/ach386.png" id="ach253" alt="" loading="lazy"></td>
+                        <td><img class="chal14 purpleach" src="Pictures/Transparent Pics/ach393.png" id="ach260" alt="" loading="lazy"></td>
+                        <td><img class="chal14 purpleach" src="Pictures/Transparent Pics/ach400.png" id="ach267" alt="" loading="lazy"></td>
+                        <td><img class="chal14" src="Pictures/Transparent Pics/ach407.png" id="ach274" alt="" loading="lazy"></td>
                     </tr>
                     <tr>
                         <td><img src="Pictures/Transparent Pics/ach42.png" id="ach2" alt="" loading="lazy"></td>
@@ -870,7 +927,10 @@
                         <td><img class="ascendunlock" src="Pictures/Transparent Pics/ach366.png" id="ach233" alt="" loading="lazy"></td>
                         <td><img class="ascendunlock purpleach" src="Pictures/Transparent Pics/ach373.png" id="ach240" alt="" loading="lazy"></td>
                         <td><img class="ascendunlock" src="Pictures/Transparent Pics/ach380.png" id="ach247" alt="" loading="lazy"></td>
-
+                        <td><img class="chal14 purpleach" src="Pictures/Transparent Pics/ach387.png" id="ach254" alt="" loading="lazy"></td>
+                        <td><img class="chal14 purpleach" src="Pictures/Transparent Pics/ach394.png" id="ach261" alt="" loading="lazy"></td>
+                        <td><img class="chal14" src="Pictures/Transparent Pics/ach401.png" id="ach268" alt="" loading="lazy"></td>
+                        <td><img class="chal14" src="Pictures/Transparent Pics/ach408.png" id="ach275" alt="" loading="lazy"></td>
                     </tr>
                     <tr>
                         <td><img src="Pictures/Transparent Pics/ach83.png" id="ach3" class="purpleach" alt="" loading="lazy"></td>
@@ -909,7 +969,10 @@
                         <td><img class="ascendunlock" src="Pictures/Transparent Pics/ach367.png" id="ach234" alt="" loading="lazy"></td>
                         <td><img class="ascendunlock" src="Pictures/Transparent Pics/ach374.png" id="ach241" alt="" loading="lazy"></td>
                         <td><img class="ascendunlock" src="Pictures/Transparent Pics/ach381.png" id="ach248" alt="" loading="lazy"></td>
-
+                        <td><img class="chal14 purpleach" src="Pictures/Transparent Pics/ach388.png" id="ach255" alt="" loading="lazy"></td>
+                        <td><img class="chal14 purpleach" src="Pictures/Transparent Pics/ach395.png" id="ach262" alt="" loading="lazy"></td>
+                        <td><img class="chal14" src="Pictures/Transparent Pics/ach402.png" id="ach269" alt="" loading="lazy"></td>
+                        <td><img class="chal14" src="Pictures/Transparent Pics/ach409.png" id="ach276" alt="" loading="lazy"></td>
                     </tr>
                     <tr>
                         <td><img src="Pictures/Transparent Pics/ach124.png" id="ach4" class="redach"alt="" loading="lazy"></td>
@@ -948,6 +1011,10 @@
                         <td><img class="chal12" src="Pictures/Transparent Pics/ach368.png" id="ach235" alt="" loading="lazy"></td>
                         <td><img class="ascendunlock" src="Pictures/Transparent Pics/ach375.png" id="ach242" alt="" loading="lazy"></td>
                         <td><img class="ascendunlock" src="Pictures/Transparent Pics/ach382.png" id="ach249" alt="" loading="lazy"></td>
+                        <td><img class="chal14 purpleach" src="Pictures/Transparent Pics/ach389.png" id="ach256" alt="" loading="lazy"></td>
+                        <td><img class="chal14 purpleach" src="Pictures/Transparent Pics/ach396.png" id="ach263" alt="" loading="lazy"></td>
+                        <td><img class="chal14 purpleach" src="Pictures/Transparent Pics/ach403.png" id="ach270" alt="" loading="lazy"></td>
+                        <td><img class="chal14" src="Pictures/Transparent Pics/ach410.png" id="ach277" alt="" loading="lazy"></td>
                     </tr>
                     <tr>
                         <td><img class="purpleach" src="Pictures/Transparent Pics/ach165.png" id="ach5" alt="" loading="lazy"></td>
@@ -986,7 +1053,10 @@
                         <td><img class="chal12" src="Pictures/Transparent Pics/ach369.png" id="ach236" alt="" loading="lazy"></td>
                         <td><img class="ascendunlock" src="Pictures/Transparent Pics/ach376.png" id="ach243" alt="" loading="lazy"></td>
                         <td><img class="ascendunlock purpleach" src="Pictures/Transparent Pics/ach383.png" id="ach250" alt="" loading="lazy"></td>
-
+                        <td><img class="chal14 purpleach" src="Pictures/Transparent Pics/ach390.png" id="ach257" alt="" loading="lazy"></td>
+                        <td><img class="chal14 purpleach" src="Pictures/Transparent Pics/ach397.png" id="ach264" alt="" loading="lazy"></td>
+                        <td><img class="chal14 purpleach" src="Pictures/Transparent Pics/ach404.png" id="ach271" alt="" loading="lazy"></td>
+                        <td><img class="chal14" src="Pictures/Transparent Pics/ach411.png" id="ach278" alt="" loading="lazy"></td>
 
                     </tr>
                     <tr>
@@ -1026,7 +1096,10 @@
                         <td><img class="chal12" src="Pictures/Transparent Pics/ach370.png" id="ach237" alt="" loading="lazy"></td>
                         <td><img class="ascendunlock" src="Pictures/Transparent Pics/ach377.png" id="ach244" alt="" loading="lazy"></td>
                         <td><img class="ascendunlock purpleach" src="Pictures/Transparent Pics/ach384.png" id="ach251" alt="" loading="lazy"></td>
-
+                        <td><img class="chal14 purpleach" src="Pictures/Transparent Pics/ach391.png" id="ach258" alt="" loading="lazy"></td>
+                        <td><img class="chal14 purpleach" src="Pictures/Transparent Pics/ach398.png" id="ach265" alt="" loading="lazy"></td>
+                        <td><img class="chal14" src="Pictures/Transparent Pics/ach405.png" id="ach272" alt="" loading="lazy"></td>
+                        <td><img class="chal14" src="Pictures/Transparent Pics/ach412.png" id="ach279" alt="" loading="lazy"></td>
                     </tr>
                     <tr>
                         <td><img src="Pictures/Transparent Pics/ach247.png" id="ach7" class="purpleach" alt="" loading="lazy"></td>
@@ -1065,7 +1138,10 @@
                         <td><img class="ascendunlock" src="Pictures/Transparent Pics/ach371.png" id="ach238" alt="" loading="lazy"></td>
                         <td><img class="ascendunlock" src="Pictures/Transparent Pics/ach378.png" id="ach245" alt="" loading="lazy"></td>
                         <td><img class="ascendunlock" src="Pictures/Transparent Pics/ach385.png" id="ach252" alt="" loading="lazy"></td>
-
+                        <td><img class="chal14 purpleach" src="Pictures/Transparent Pics/ach392.png" id="ach259" alt="" loading="lazy"></td>
+                        <td><img class="chal14 purpleach" src="Pictures/Transparent Pics/ach399.png" id="ach266" alt="" loading="lazy"></td>
+                        <td><img class="chal14 purpleach" src="Pictures/Transparent Pics/ach406.png" id="ach273" alt="" loading="lazy"></td>
+                        <td><img class="chal14" src="Pictures/Transparent Pics/ach413.png" id="ach280" alt="" loading="lazy"></td>
                     </tr>
 
                     </table>
@@ -1127,7 +1203,7 @@
 
                     <div id="rune2area" class="runeType">
                         <p id="duplicationrune" class="runeTypeElement" style="color: plum">Duplication Rune</p>
-                        <img id="rune2" class="runeTypeElement" src="Pictures/Transparent Pics/DuplicationRune.png" alt="" loading="lazy">
+                        <img id="rune2" class="runeTypeElement" src="Pictures/duplicate_rune_quality.gif" alt="" loading="lazy">
                         <p id="rune2level" class="runeTypeElement">Level: 1/500</p>
                         <p id="bonusrune2" class="runeTypeElement" style="color: orange"></p>
                         <p id="rune2exp" class="runeTypeElement">Exp: 0/40</p>
@@ -1162,7 +1238,7 @@
                     </div>
 
                     <div id="rune6area" class="runeType">
-                        <p id="infiniteAscent" class="runeTypeElement" style="color: lightgoldenrodyellow">Infinite Ascent</p>
+                        <p id="infiniteAscentRune" class="runeTypeElement" style="color: lightgoldenrodyellow">Infinite Ascent</p>
                         <img id="rune6" class="runeTypeElement" src="Pictures/Etherian Staircase.png" alt="" loading="lazy">
                         <p id="rune6level" class="runeTypeElement">Level: 1/999,999</p>
                         <p id="bonusrune6" class="runeTypeElement" style="color: orange">[Bonus: +0]</p>
@@ -1236,6 +1312,7 @@
                     <span id="talismanFragmentCost">Cost for 1: 1e6 Obtainium</span>
                 </div>
                 <div class="talismansContainer">
+                    <button class="talismanBtn" id="respecAllTalismans">RESPEC ALL</button>
                     <div class="talismanContainer" id="talisman1area">
                         <span class="talismanName" style="color: limegreen;">Exemption</span>
                         <img class="talismanIcon" id="talisman1" src="Pictures/taxtalisman.png" alt="" loading="lazy">
@@ -1243,7 +1320,6 @@
                         <button class="talismanBtn" id="leveluptalisman1" style="color: silver; border: 2px solid white;">FORTIFY</button>
                         <button class="talismanBtn" id="enhancetalisman1" style="color: gold; border: 2px solid orangered">ENHANCE</button>
                         <button class="talismanBtn" id="respectalisman1" style="color: plum; border: 2px solid white">RESPEC</button>
-                        <button class="talismanBtn" id="respecAllTalismans">RESPEC ALL</button>
                     </div>
                     <div class="talismanContainer" id="talisman2area">
                         <span class="talismanName" style="color: cyan">Chronos</span>
@@ -1885,13 +1961,17 @@
                     <p id="cubeQuarksOpenRequirement">Open <span id="cubeQuarksOpenRequirementValue" style="color: yellow">1</span> cubes for next quark.</p>
                     <p id="cubeQuarksOpenToday">Cubes opened today: <span id="cubeQuarksOpenTodayValue" style="color: orchid">0</span></p>
                     <br>
-                    <p id="tesseractQuarksToday" class="chal11">Quarks gained from Tesseracts: <span id="tesseractQuarksTodayValue" style="color: cyan">0/25</span></p>
+                    <p id="tesseractQuarksToday" class="chal11">Quarks gained from Tesseracts: <span id="tesseractQuarksTodayValue" style="color: cyan">0</span></p>
                     <p id="tesseractQuarksOpenRequirement" class="chal11">Open <span id="tesseractQuarksOpenRequirementValue" style="color: yellow">1</span> tesseracts for next quark.</p>
                     <p id="tesseractQuarksOpenToday" class="chal11">Tesseracts opened today: <span id="tesseractQuarksOpenTodayValue" style="color: orchid">0</span></p>            
                     <br>
-                    <p id="hypercubeQuarksToday" class="chal13">Quarks gained from Hypercubes: <span id="hypercubeQuarksTodayValue" style="color: cyan">0/25</span></p>
+                    <p id="hypercubeQuarksToday" class="chal13">Quarks gained from Hypercubes: <span id="hypercubeQuarksTodayValue" style="color: cyan">0</span></p>
                     <p id="hypercubeQuarksOpenRequirement" class="chal13">Open <span id="hypercubeQuarksOpenRequirementValue" style="color: yellow">1</span> hypercubes for next quark.</p>
                     <p id="hypercubeQuarksOpenToday" class="chal13">Hypercubes opened today: <span id="hypercubeQuarksOpenTodayValue" style="color: orchid;">0</span></p>
+                    <br>
+                    <p id="platonicCubeQuarksToday" class="chal14">Quarks gained from Platonics: <span id="platonicCubeQuarksTodayValue" style="color: cyan">0</span></p>
+                    <p id="platonicCubeQuarksOpenRequirement" class="chal14">Open <span id="platonicCubeQuarksOpenRequirementValue" style="color: yellow">1</span> platonic cubes for next quark.</p>
+                    <p id="platonicCubeQuarksOpenToday" class="chal14">Platonic Cubes opened today: <span id="platonicCubeQuarksOpenTodayValue" style="color: orchid">0</span></p>
                 </div>
                 <div id="cubeTab1" class="cubeTab" style="display: flex">
                     <span id="cubeWelcome" class="cubePlacement1" style="color: orange">You feel a sense of Pride and Accomplishment... and a hunger for power.</span>
@@ -2296,6 +2376,7 @@
                 <div id="cubeTab6" class="cubeTab" style="display: none">
                     <div id="c15Rewards" class="challengeContainer" style='border: 3px solid plum'>
                         <p id="c15Reward0" class="challengePortion">Best Challenge 15 Exponent: <span id="c15Reward0Num" class="challengeNumber" style='color: gold; font-size: 1.2em;'></span></p>
+                        <p id="c15RequiredExponent" class="challengePortion">Gain <span id="c15RequiredExponentNum" class="challengeNumber" style='color: gold; font-size: 1.2em;'></span> Coin Exponent in Challenge 15 to gain more score!</p>
                         <p id="c15RewardList" class="challengePortion" style="color: orchid;">Next Reward Unlocks at 0 coins.</p>
                         <p id="c15Reward1" class="challengePortion">1. All Cube Types I: +<span id="c15Reward1Num" class="challengeNumber"></span>%</p>
                         <p id="c15Reward2" class="challengePortion">2. Ascension Count: +<span id="c15Reward2Num" class="challengeNumber"></span>%</p>
@@ -2323,10 +2404,13 @@
                         <p id="c15Reward24" class="challengePortion" style="color: lightgoldenrodyellow;">24. Quarks: +<span id="c15Reward24Num" class="challengeNumber"></span>%</p>
                         <p id="c15Reward25" class="challengePortion" style="color: pink;">25. Hepteracts: <span id="c15Reward25Num" class="challengeNumber" style="color:pink"></span></p>
                         <p id="c15Reward26" class="challengePortion" style="color: red;">26. Challenge Hepteract: <span id="c15Reward26Num" class="challengeNumber" style="color:red"></span></p>
-                        <p id="c15Reward27" class="challengePortion" style="color: grey;">27. Abyss Hepteract: <span id="c15Reward27Num" class="challengeNumber" style="color:grey"></span></p>
-                        <p id="c15Reward28" class="challengePortion" style="color: orange;">28. Accelerator Hepteract: <span id="c15Reward28Num" class="challengeNumber" style="color:orange"></span></p>
-                        <p id="c15Reward29" class="challengePortion" style="color: cyan;">29. Accelerator Boost Hepteract: <span id="c15Reward29Num" class="challengeNumber" style="color:cyan"></span></p>
-                        <p id="c15Reward30" class="challengePortion" style="color: orchid;">30. Multiplier Hepteract: <span id="c15Reward30Num" class="challengeNumber" style="color:orchid"></span></p>
+                        <p id="c15Reward27" class="challengePortion">27. All Cube Types V: +<span id="c15Reward27Num" class="challengeNumber"></span>%</p>
+                        <p id="c15Reward28" class="challengePortion">28. Powder Conversion: +<span id="c15Reward28Num" class="challengeNumber"></span>%</p>
+                        <p id="c15Reward29" class="challengePortion" style="color: grey;">29. Abyss Hepteract: <span id="c15Reward29Num" class="challengeNumber" style="color:grey"></span></p>
+                        <p id="c15Reward30" class="challengePortion">30. Constant Upgrade 2: +<span id="c15Reward30Num" class="challengeNumber"></span>%</p>
+                        <p id="c15Reward31" class="challengePortion" style="color: orange;">31. Accelerator Hepteract: <span id="c15Reward31Num" class="challengeNumber" style="color:orange"></span></p>
+                        <p id="c15Reward32" class="challengePortion" style="color: cyan;">32. Accelerator Boost Hepteract: <span id="c15Reward32Num" class="challengeNumber" style="color:cyan"></span></p>
+                        <p id="c15Reward33" class="challengePortion" style="color: orchid;">33. Multiplier Hepteract: <span id="c15Reward33Num" class="challengeNumber" style="color:orchid"></span></p>
 
                     </div>
                     <div class="platonicUpgradesContainer">
@@ -2404,33 +2488,42 @@
                             <button id="challengeHepteractCap">Expand</button>
                         </div>
                         <div class="hepteractType" id="abyssHepteract">
-                            <img id="abyssHepteractImage" src="Pictures/WIP.png">
+                            <img id="abyssHepteractImage" src="Pictures/AbyssHepteract.png">
                             <button id="abyssHepteractCraft">Craft</button>
                             <button id="abyssHepteractCap">Expand</button>
                         </div>
                         <div class="hepteractType" id="acceleratorHepteract">
-                            <img id="acceleratorHepteractImage" src="Pictures/WIP.png">
+                            <img id="acceleratorHepteractImage" src="Pictures/AcceleratorHepteract.png">
                             <button id="acceleratorHepteractCraft">Craft</button>
                             <button id="acceleratorHepteractCap">Expand</button>
                         </div>
                         <div class="hepteractType" id="acceleratorBoostHepteract">
-                            <img id="acceleratorBoostHepteractImage" src="Pictures/WIP.png">
+                            <img id="acceleratorBoostHepteractImage" src="Pictures/AcceleratorBoostHepteract.png">
                             <button id="acceleratorBoostHepteractCraft">Craft</button>
                             <button id="acceleratorBoostHepteractCap">Expand</button>
                         </div>
                         <div class="hepteractType" id="multiplierHepteract">
-                            <img id="multiplierHepteractImage" src="Pictures/WIP.png">
+                            <img id="multiplierHepteractImage" src="Pictures/MultiplierHepteract.png">
                             <button id="multiplierHepteractCraft">Craft</button>
                             <button id="multiplierHepteractCap">Expand</button>
+                        </div>
+                        <div class="hepteractType" id="hepteractToQuark">
+                            <img id="hepteractToQuarkImage" src="Pictures/Overflux.png">
+                            <button id="hepteractToQuarkTrade">Craft</button>
+                        </div>
+                        <div class="hepteractType" id="overfluxPowder">
+                            <img id="overfluxPowderImage" src="Pictures/Overflux Powder.png">
+                            <button id="powderDayWarp">Warp</button>
                         </div>
                     </div>
 
                     <div id="hepteractCraftTexts">
                         <p id="hepteractUnlockedText" style="color: white"></p>
                         <p id="hepteractEffectText" style="color:rgb(0, 255, 76)"></p>
-                        <p id="hepteractCurrentEffectText" style="color: yellow"></p>
                         <p id="hepteractBalanceText" style="color: orchid;"></p>
+                        <p id="hepteractCurrentEffectText" style="color: yellow"></p>
                         <p id="hepteractCostText" style="color: white"></p>
+                        <p id="powderDayWarpText" style="color: orange;"></p>
                     </div>
 
                 </div>
@@ -2552,79 +2645,82 @@
         <button id="switchSettingSubTab3" style="border: 2px solid orange">Stats for Nerds</button>
         <button id="switchSettingSubTab4" class="prestigeunlockib" style="border: 2px solid brown">Reset History</button>
         <button id="switchSettingSubTab5" class="ascendunlockib" style="border: 2px solid darkorange">Ascend History</button>
-        <button id="switchSettingSubTab6" style="border: 2px solid white">Logger</button>
+        <button id="switchSettingSubTab6" style="border: 2px solid white">Hotkeys</button>
     </div>
     <div class="subtabContent subtabDisplayFlex subtabActive" id="settingsubtab">
-        <div id="confirmationToggleBox">
-            <p class="prestigeunlock" id="settingtitle2" style="color: pink">Confirmation Toggles</p>
-            <div class="confirmationToggles">
-                <div class="center"></div>
-                <div class="confirmationToggle">
-                    <img class="prestigeunlock settingpic" id="settingpic1" src = "Pictures/Prestige.png" alt="" loading="lazy">
-                    <button class="auto square" id="toggle28" toggleid="28" format="[$]" style="border:2px solid green">[ON]</button>
+        <div class="settingSubTabUpper">
+            <div id="confirmationToggleBox">
+                <p class="prestigeunlock" id="settingtitle2" style="color: pink">Confirmation Toggles</p>
+                <div class="confirmationToggles">
+                    <div class="center"></div>
+                    <div class="confirmationToggle">
+                        <img class="prestigeunlock settingpic" id="settingpic1" src = "Pictures/Prestige.png" alt="" loading="lazy">
+                        <button class="auto square" id="toggle28" toggleid="28" format="[$]" style="border:2px solid green">[ON]</button>
+                    </div>
+                    <div class="confirmationToggle">
+                        <img class="transcendunlock settingpic" id="settingpic2" src = "Pictures/Transcend.png" alt="" loading="lazy">
+                        <button class="auto square" id="toggle29" toggleid="29" format="[$]" style="border:2px solid green">[ON]</button>
+                    </div>
+                    <div class="confirmationToggle">
+                        <img class="reincarnationunlock settingpic" id="settingpic3" src = "Pictures/Reincarnate.png" alt="" loading="lazy">
+                        <button class="auto square" id="toggle30" toggleid="30" format="[$]" style="border:2px solid green">[ON]</button>
+                    </div>
+                    <div class="confirmationToggle">
+                        <img class="ascendunlock settingpic" id="settingpic4" src = "Pictures/questionable.png" alt="" loading="lazy">
+                        <button class="auto square" id="toggle31" toggleid="31" format="[$]" style="border:2px solid green">[ON]</button>
+                    </div>
+                    <div class="confirmationToggle">
+                        <img class="sacrificeAnts settingpic" id="settingpic5" src = "Pictures/Transparent%20Pics/Research124.png" alt="" loading="lazy">
+                        <button class="auto square" id="toggle32" toggleid="32" format="[$]" style="border:2px solid green">[ON]</button>
+                    </div>
+                    <div class="center"></div>
                 </div>
-                <div class="confirmationToggle">
-                    <img class="transcendunlock settingpic" id="settingpic2" src = "Pictures/Transcend.png" alt="" loading="lazy">
-                    <button class="auto square" id="toggle29" toggleid="29" format="[$]" style="border:2px solid green">[ON]</button>
-                </div>
-                <div class="confirmationToggle">
-                    <img class="reincarnationunlock settingpic" id="settingpic3" src = "Pictures/Reincarnate.png" alt="" loading="lazy">
-                    <button class="auto square" id="toggle30" toggleid="30" format="[$]" style="border:2px solid green">[ON]</button>
-                </div>
-                <div class="confirmationToggle">
-                    <img class="ascendunlock settingpic" id="settingpic4" src = "Pictures/questionable.png" alt="" loading="lazy">
-                    <button class="auto square" id="toggle31" toggleid="31" format="[$]" style="border:2px solid green">[ON]</button>
-                </div>
-                <div class="confirmationToggle">
-                    <img class="sacrificeAnts settingpic" id="settingpic5" src = "Pictures/Transparent%20Pics/Research124.png" alt="" loading="lazy">
-                    <button class="auto square" id="toggle32" toggleid="32" format="[$]" style="border:2px solid green">[ON]</button>
-                </div>
-                <div class="center"></div>
+                <p class="prestigeunlock" id="confirmationdisclaimer" style="color: plum">These do not work with hotkeys. Too bad!</p>
+                <button id="promocodes" style="border: 2px solid goldenrod">Enter a promotion code here!</button>
+                <p id="promocodeinfo" style="color: goldenrod"></p>
             </div>
-            <p class="prestigeunlock" id="confirmationdisclaimer" style="color: plum">These do not work with hotkeys. Too bad!</p>
-            <button id="promocodes" style="border: 2px solid goldenrod">Enter a promotion code here!</button>
-            <p id="promocodeinfo" style="color: goldenrod"></p>
+            <div id="exportButtons">
+                <p id="quarktimerdisplay" class="tightText" style="color: gold">3600s until +1 export Quark</p>
+                <p id="quarktimeramount" class="tightText" style="color: cyan">Quarks on export: 0 [Max 25]</p>
+                <div>
+                    <input type="checkbox" id="saveType" name="saveType">
+                    <label style="display: inline;" for="saveType">Copy to Clipboard</label>
+                </div>
+                <button id="exportgame" style="border:2px solid green">Export the game here</button>
+                <p id="exportinfo" class="tightText" style="color: white"></p>
+                <label title="Use $VERSION$ for version, $TIME$ for 24h time, $TIME12$ for 12h">
+                    <input id="saveStringInput">
+                </label>
+                <p id="saveString" class="tightText" title="Use $VERSION$ for version, $TIME$ for 24h time, $TIME12$ for 12h"></p>
+                <p id="importgame" class="tightText" style="color: limegreen">Load game below!</p>
+                <label id="importFileButton" for="importfile">Load from file</label>
+                <input type="file" id="importfile" accept=".txt" style="display: none">
+                <button id="savegame" style="border: 2px solid plum">Save the game manually</button>
+                <button id="deleteGame" style="border: 2px solid red">Delete savefile</button>
+                <p id="saveinfo" style="color: limegreen"></p>
+            </div>
+            <div id="thirdParty">
+                <div id="discord">
+                    Click the image below to join the Discord!
+                    <a id="discordhref" href="https://www.discord.gg/ameCknq" target="_blank" rel="noopener noreferrer nofollow">
+                        <img id="discordicon" src="Pictures/icon.gif" title="Click to join the official Discord!" alt="" width="100" height="100" loading="lazy">
+                    </a>
+                </div>
+                <div id="patreon">
+                    Support Development on Patreon!
+                    <a id="patreonhref" href="https://www.patreon.com/synergism" target="_blank" rel="noopener noreferrer nofollow">
+                        <img id="patreonicon" src="Pictures/Patreonlogo.png" title="Click to support development!" alt="" loading="lazy">
+                    </a> 
+                    <p id="currentBonus">Current Bonus: 0%</p>
+                </div>
+                <div id="patchnotes">
+                    <a href="https://docs.google.com/document/d/1YITuLirrsJUjVjz2pFwkUBUcQJDqO2dV7TZrQX8HQUU/edit" target="_blank" rel="noopener noreferrer nofollow">
+                        <img id="patchnotesicon" src="Pictures/patchnotes.png" title="Click to read the latest patch notes!" alt="" loading="lazy">
+                    </a>
+                </div>
+            </div>
         </div>
-        <div id="exportButtons">
-            <p id="quarktimerdisplay" class="prestigeunlock tightText" style="color: gold">3600s until +1 export Quark</p>
-            <p id="quarktimeramount" class="prestigeunlock tightText" style="color: cyan">Quarks on export: 0 [Max 25]</p>
-            <div>
-                <input type="checkbox" id="saveType" name="saveType">
-                <label style="display: inline;" for="saveType">Copy to Clipboard</label>
-            </div>
-            <button id="exportgame" style="border:2px solid green">Export the game here</button>
-            <p id="exportinfo" class="tightText" style="color: white"></p>
-            <label title="Use $VERSION$ for version, $TIME$ for 24h time, $TIME12$ for 12h">
-                <input id="saveStringInput">
-            </label>
-            <p id="saveString" class="tightText" title="Use $VERSION$ for version, $TIME$ for 24h time, $TIME12$ for 12h"></p>
-            <p id="importgame" class="tightText" style="color: limegreen">Load game below!</p>
-            <label id="importFileButton" for="importfile">Load from file</label>
-            <input type="file" id="importfile" accept=".txt" style="display: none">
-            <button id="savegame" style="border: 2px solid plum">Save the game manually</button>
-            <button id="deleteGame" style="border: 2px solid red">Delete savefile</button>
-            <p id="saveinfo" style="color: limegreen"></p>
-        </div>
-        <div id="thirdParty">
-            <div id="discord">
-                Click the image below to join the Discord!
-                <a id="discordhref" href="https://www.discord.gg/ameCknq" target="_blank" rel="noopener noreferrer nofollow">
-                    <img id="discordicon" src="Pictures/icon.gif" title="Click to join the official Discord!" alt="" width="100" height="100" loading="lazy">
-                </a>
-            </div>
-            <div id="patreon">
-                [NEW!] Support Development on Patreon!
-                <a id="patreonhref" href="https://www.patreon.com/synergism" target="_blank" rel="noopener noreferrer nofollow">
-                    <img id="patreonicon" src="Pictures/Patreonlogo.png" title="Click to support development!" alt="" loading="lazy">
-                </a> 
-            </div>
-            <div id="patchnotes">
-                <a href="https://docs.google.com/document/d/1johzFBUUBCmbHXWcg8nIbtCqPmoNIl9ePsfWlzPoWuM/edit?usp=sharing" target="_blank" rel="noopener noreferrer nofollow">
-                    <img id="patchnotesicon" src="Pictures/patchnotes.png" title="Click to read the latest patch notes!" alt="" loading="lazy">
-                </a>
-            </div>
-        </div>
-        <p id="versionnumber" style="color: fuchsia">You're playing Synergism</p>
+        <div id="versionnumber">You're playing Synergism</div>
     </div>
     <div class="subtabContent" id="creditssubtab">
         <h1>Coders</h1>
@@ -2712,7 +2808,20 @@
             <p id="statOff23" class="statPortion chal14">Challenge 15:<span id="sOff23" class="statNumber">0</span></p>
             <p id="statOffT" class="statPortion statTotal" style='color: gold'>TOTAL OFFERING MULTIPLIER: <span id="sOffT" class="statNumber statTotal">0</span></p>
         </div>
-                <div id="cubeMultiplierStats" class="statContainer ascendunlock">
+        <div id="globalCubeMultiplierStats" class="statContainer ascendunlock">
+            <p id="globalCubeStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em">Global Cube multipliers</p>
+            <p id="statGCM1" class="statPortion">Ascend Time Multi:<span id="sGCM1" class="statNumber">0</span></p>
+            <p id="statGCM2" class="statPortion">Season pass:<span id="sGCM2" class="statNumber">0</span></p>
+            <p id="statGCM3" class="statPortion ">Research 5x19:<span id="sGCM3" class="statNumber">0</span></p>
+            <p id="statGCM4" class="statPortion">Research 5x20:<span id="sGCM4" class="statNumber">0</span></p>
+            <p id="statGCM5" class="statPortion">Cube upgrade 1x1:<span id="sGCM5" class="statNumber">0</span></p>
+            <p id="statGCM6" class="statPortion">Cube upgrade 1x1:<span id="sGCM6" class="statNumber">0</span></p>
+            <p id="statGCM7" class="statPortion">Cube upgrade 1x1:<span id="sGCM7" class="statNumber">0</span></p>
+            <p id="statGCM8" class="statPortion">Cube upgrade 1x1:<span id="sGCM8" class="statNumber">0</span></p>
+            <p id="statGCMT" class="statPortion statTotal" style="color: orange">TOTAL GLOBAL CUBE MULTIPLIER: <span
+                id="sGCMT" class="statNumber statTotal">0</span></p>
+        </div>
+        <div id="cubeMultiplierStats" class="statContainer ascendunlock">
             <p id="cubeStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em">Cube multipliers</p>
             <p id="statCM1" class="statPortion">Ascend Time Multi:<span id="sCM1" class="statNumber">0</span></p>
             <p id="statCM2" class="statPortion">Season pass:<span id="sCM2" class="statNumber">0</span></p>
@@ -2729,20 +2838,69 @@
             <p id="statCM13" class="statPortion chal13">Research 8x7: <span id="sCM13" class="statNumber">0</span></p>
             <p id="statCM14" class="statPortion chal14">Research 8x22: <span id="sCM14" class="statNumber">0</span></p>
             <p id="statCM15" class="statPortion chal14">Ascension Count Achievement: <span id="sCM15" class="statNumber">0</span></p>
-            <p id="statCM16" class="statPortion chal14">Bought Mortuus Est ants (R8x17): <span id="sCM16" class="statNumber">0</span></p>
-            <p id="statCM17" class="statPortion chal12">Duplication Spirit Power: <span id="sCM17" class="statNumber">0</span></p>
-            <p id="statCM18" class="statPortion chal14">Research 8x25: <span id="sCM18" class="statNumber">0</span></p>
-            <p id="statCM19" class="statPortion">Constant upgrade 10: <span id="sCM19" class="statNumber">0</span></p>
-            <p id="statCM20" class="statPortion">Cube upgrade 3x10: <span id="sCM20" class="statNumber">0</span></p>
-            <p id="statCM21" class="statPortion">Num Ach 4: <span id="sCM21" class="statNumber">0</span></p>
-            <p id="statCM22" class="statPortion">Num Ach 6: <span id="sCM22" class="statNumber">0</span></p>
-            <p id="statCM23" class="statPortion chal14">Challenge 11 Ach: <span id="sCM23" class="statNumber">0</span></p>
-            <p id="statCM24" class="statPortion chal14">ASCENDED Achievement: <span id="sCM24" class="statNumber">0</span></p>
-            <p id="statCM25" class="statPortion chal14">Sun & Moon Achievements: <span id="sCM25" class="statNumber">0</span></p>
-            <p id="statCM26" class="statPortion chal14">Cube Shards: <span id="sCM26" class="statNumber">0</span></p>
-            <p id="statCM27" class="statPortion chal14">Challenge 15: <span id="sCM27" class="statNumber">0</span></p>
             <p id="statCMT" class="statPortion statTotal" style="color: orange">TOTAL CUBE MULTIPLIER: <span
                     id="sCMT" class="statNumber statTotal">0</span></p>
+        </div>
+        <div id="tesseractMultiplierStats" class="statContainer ascendunlock">
+            <p id="tesseractStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em">Tesseract multipliers</p>
+            <p id="statTeM1" class="statPortion">Ascend Time Multi:<span id="sTeM1" class="statNumber">0</span></p>
+            <p id="statTeM2" class="statPortion">Season pass:<span id="sTeM2" class="statNumber">0</span></p>
+            <p id="statTeM3" class="statPortion ">Research 5x19:<span id="sTeM3" class="statNumber">0</span></p>
+            <p id="statTeM4" class="statPortion">Research 5x20:<span id="sTeM4" class="statNumber">0</span></p>
+            <p id="statTeM5" class="statPortion">Cube upgrade 1x1:<span id="sTeM5" class="statNumber">0</span></p>
+            <p id="statTeM6" class="statPortion">Cube upgrade 2x1: <span id="sTeM6" class="statNumber">0</span></p>
+            <p id="statTeM7" class="statPortion">Cube upgrade 3x1: <span id="sTeM7" class="statNumber">0</span></p>
+            <p id="statTeM8" class="statPortion">Cube upgrade 4x1: <span id="sTeM8" class="statNumber">0</span></p>
+            <p id="statTeM9" class="statPortion">Cube upgrade 5x1: <span id="sTeM9" class="statNumber">0</span></p>
+            <p id="statTeM10" class="statPortion">Research 6x12: <span id="sTeM10" class="statNumber">0</span></p>
+            <p id="statTeM11" class="statPortion chal11">Research 7x2: <span id="sTeM11" class="statNumber">0</span></p>
+            <p id="statTeM12" class="statPortion chal12">Research 7x17: <span id="sTeM12" class="statNumber">0</span></p>
+            <p id="statTeMT" class="statPortion statTotal" style="color: orange">TOTAL TESSERACT MULTIPLIER: <span
+                    id="sTeMT" class="statNumber statTotal">0</span></p>
+        </div>
+        <div id="hypercubeMultiplierStats" class="statContainer ascendunlock">
+            <p id="hypercubeStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em">Hypercube multipliers</p>
+            <p id="statHyM1" class="statPortion">Ascend Time Multi:<span id="sHyM1" class="statNumber">0</span></p>
+            <p id="statHyM2" class="statPortion">Season pass:<span id="sHyM2" class="statNumber">0</span></p>
+            <p id="statHyM3" class="statPortion ">Research 5x19:<span id="sHyM3" class="statNumber">0</span></p>
+            <p id="statHyM4" class="statPortion">Research 5x20:<span id="sHyM4" class="statNumber">0</span></p>
+            <p id="statHyM5" class="statPortion">Cube upgrade 1x1:<span id="sHyM5" class="statNumber">0</span></p>
+            <p id="statHyM6" class="statPortion">Cube upgrade 2x1: <span id="sHyM6" class="statNumber">0</span></p>
+            <p id="statHyM7" class="statPortion">Cube upgrade 3x1: <span id="sHyM7" class="statNumber">0</span></p>
+            <p id="statHyM8" class="statPortion">Cube upgrade 4x1: <span id="sHyM8" class="statNumber">0</span></p>
+            <p id="statHyM9" class="statPortion">Cube upgrade 5x1: <span id="sHyM9" class="statNumber">0</span></p>
+            <p id="statHyM10" class="statPortion">Research 6x12: <span id="sHyM10" class="statNumber">0</span></p>
+            <p id="statHyM11" class="statPortion chal11">Research 7x2: <span id="sHyM11" class="statNumber">0</span></p>
+            <p id="statHyMT" class="statPortion statTotal" style="color: orange">TOTAL HYPERCUBE MULTIPLIER: <span
+                    id="sHyMT" class="statNumber statTotal">0</span></p>
+        </div>
+
+        <div id="platonicMultiplierStats" class="statContainer ascendunlock">
+            <p id="platonicStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em">Platonic multipliers</p>
+            <p id="statPlM1" class="statPortion">Ascend Time Multi:<span id="sPlM1" class="statNumber">0</span></p>
+            <p id="statPlM2" class="statPortion">Season pass:<span id="sPlM2" class="statNumber">0</span></p>
+            <p id="statPlM3" class="statPortion ">Research 5x19:<span id="sPlM3" class="statNumber">0</span></p>
+            <p id="statPlM4" class="statPortion">Research 5x20:<span id="sPlM4" class="statNumber">0</span></p>
+            <p id="statPlM5" class="statPortion">Cube upgrade 1x1:<span id="sPlM5" class="statNumber">0</span></p>
+            <p id="statPlM6" class="statPortion">Cube upgrade 2x1: <span id="sPlM6" class="statNumber">0</span></p>
+            <p id="statPlM7" class="statPortion">Cube upgrade 3x1: <span id="sPlM7" class="statNumber">0</span></p>
+            <p id="statPlM8" class="statPortion">Cube upgrade 4x1: <span id="sPlM8" class="statNumber">0</span></p>
+            <p id="statPlM9" class="statPortion">Cube upgrade 5x1: <span id="sPlM9" class="statNumber">0</span></p>
+            <p id="statPlMT" class="statPortion statTotal" style="color: orange">TOTAL PLATONIC MULTIPLIER: <span
+                    id="sPlMT" class="statNumber statTotal">0</span></p>
+        </div>
+
+        <div id="hepteractMultiplierStats" class="statContainer ascendunlock">
+            <p id="hepteractStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em">Hepteract multipliers</p>
+            <p id="statHeM1" class="statPortion">Ascend Time Multi:<span id="sHeM1" class="statNumber">0</span></p>
+            <p id="statHeM2" class="statPortion">Season pass:<span id="sHeM2" class="statNumber">0</span></p>
+            <p id="statHeM3" class="statPortion ">Research 5x19:<span id="sHeM3" class="statNumber">0</span></p>
+            <p id="statHeM4" class="statPortion">Research 5x20:<span id="sHeM4" class="statNumber">0</span></p>
+            <p id="statHeM5" class="statPortion">Cube upgrade 1x1:<span id="sHeM5" class="statNumber">0</span></p>
+            <p id="statHeM6" class="statPortion">Cube upgrade 2x1: <span id="sHeM6" class="statNumber">0</span></p>
+            <p id="statHeM7" class="statPortion">Cube upgrade 3x1: <span id="sHeM7" class="statNumber">0</span></p>
+            <p id="statHeMT" class="statPortion statTotal" style="color: orange">TOTAL HEPTERACT MULTIPLIER: <span
+                    id="sHeMT" class="statNumber statTotal">0</span></p>
         </div>
     </div>
     <div class="subtabContent subtabDisplayFlex historySubTab" id="resetHistorySubTab">
@@ -2776,120 +2934,19 @@
             </div>
         </div>
     </div>
-    <div class="subtabContent subtabDisplayFlex" id="testingLogger">
-        <div class="subtabSwitcher subTabWrapper">
-            <button id="pluginSubTab1" class="" style="border: 2px solid rgb(218, 105, 105)">Dashboard</button>
-            <button id="pluginSubTab2" style="border: 2px solid rgb(0, 255, 76)">Open Cubes</button>
+    <div class="subtabContent subtabDisplayFlex" id="hotkeys">
+        <div class="hotkeys">
+            
         </div>
-        <div id="console"></div>
+        <span id="hotkeyTooltip">Why don't you try clicking on one of the item's <span style="color:gold;">gold</span> text above to get started? You can always cancel!</span>
     </div>
 </div>
 
     <div id="shop">
         <div id="shopWrapper"> 
-            <p id="shoptop">Welcome to the Quark Shop. You can't believe what's in stock!</p>
-
-            <div id="actualWrapper"> 
-                <div id="actualShop">
-                    <div>
-                        <img id="OfferingEX" src="Pictures/Offering Upgrade.png" alt="" loading="lazy">
-                        <p id="offeringtimerlevel">Level: 0/5</p>
-                        <button class="permshopbutton" id="offeringtimerbutton" style="border: 2px solid orange">Upgrade for 150 Quarks</button>
-                    </div>
-                    <div>
-                        <img id="OfferingAuto" src="Pictures/Offering Auto Upgrade.png" alt="" loading="lazy">
-                        <p id="offeringautolevel">Level: 0/5</p>
-                        <button class="permshopbutton" id="offeringautobutton" style="border: 2px solid orange">Upgrade for 150 Quarks</button>
-                    </div>
-                    <div>
-                        <img id="ObtainiumEX" src="Pictures/Obtainium Upgrade.png" alt="" loading="lazy">
-                        <p id="obtainiumtimerlevel">Level: 0/5</p>
-                        <button class="permshopbutton" id="obtainiumtimerbutton" style="border: 2px solid blue">Upgrade for 150 Quarks</button>
-                    </div>
-                    <div>
-                        <img id="ObtainiumAuto" src="Pictures/Obtainium Auto Upgrade.png" alt="" loading="lazy">
-                        <p id="obtainiumautolevel">Level: 0/5</p>
-                        <button class="permshopbutton" id="obtainiumautobutton" style="border: 2px solid blue">Upgrade for 150 Quarks</button>
-                    </div>
-                    <div>
-                        <img id="InstChallenge" src="Pictures/Instant Challenge.png" alt="" loading="lazy">
-                        <p id="instantchallenge">Not Bought</p>
-                        <button class="permshopbutton" id="instantchallengebutton" style="border: 2px solid plum">Buy for 300 Quarks</button>
-                    </div>
-                    <div>
-                        <img id="AntSpd" src="Pictures/antspeed.png" alt="" loading="lazy">
-                        <p id="antspeed">Level: 0/3</p>
-                        <button class="permshopbutton" id="antspeedbutton" style="border: 2px solid maroon">Upgrade for 200 Quarks</button>
-                    </div>
-                    <div>
-                        <img id="CashUpgrade" src="Pictures/cashgrab.png" alt="" loading="lazy">
-                        <p id="cashgrab">Level: 0/5</p>
-                        <button class="permshopbutton" id="cashgrabbutton" style="border: 2px solid limegreen">Upgrade for 100 Quarks</button>
-                    </div>
-                    <div>
-                        <img id="CashTalisman" src="Pictures/shoptalisman.png" alt="" loading="lazy">
-                        <p id="shoptalisman">Not Bought</p>
-                        <button class="permshopbutton" id="shoptalismanbutton" style="border: 2px solid chartreuse">Buy for 1,500 Quarks</button>
-                    </div>
-                    <div>
-                        <img id="SeasonPass" src="Pictures/VIP Pass Upgrade.png" alt="" loading="lazy">
-                        <p id="seasonPassLevel">Level: 0/5</p>
-                        <button class="permshopbutton" id="seasonPassButton" style="border: 2px solid orange"></button>
-                    </div>
-                    <div>
-                        <img id="ShopChallenge" src="Pictures/Challenge Upgrade.png" alt="" loading="lazy">
-                        <p id="challengeUpgradeLevel">Level: 0/5</p>
-                        <button class="permshopbutton" id="challengeUpgradeButton" style="border: 2px solid gray"></button>
-                        
-                    </div>
-                    <div>
-                        <img id="ShopTome" src="Pictures/Challenge 10 Tome Upgrade.png" alt="" loading="lazy">
-                        <p id="challenge10TomeLevel">Level: 0/5</p>
-                        <button class="permshopbutton" id="challenge10TomeButton" style="border: 2px solid gold"></button>
-                    </div>
-                    <div>
-                        <img id="CubeQuark" src="Pictures/Cube Quark Upgrade.png" alt="" loading="lazy">
-                        <p id="cubeToQuark">Not Bought</p>
-                        <button class="permshopbutton" id="cubeToQuarkButton" style="border: 2px solid yellow"></button>
-                    </div>
-                    <div>
-                        <img id="TesseractQuark" src="Pictures/Tesseract Quark Upgrade.png" alt="" loading="lazy">
-                        <p id="tesseractToQuark">Not Bought</p>
-                        <button class="permshopbutton" id="tesseractToQuarkButton" style="border: 2px solid darkorchid"></button>
-                    </div>
-                    <div>
-                        <img id="HypercubeQuark" src="Pictures/Hypercube Quark Upgrade.png" alt="" loading="lazy">
-                        <p id="hypercubeToQuark">Not Bought</p>
-                        <button class="permshopbutton" id="hypercubeToQuarkButton" style="border: 2px solid red"></button>
-                    </div>
-                    <div>
-                        <img id="SeasonPass2" src="Pictures/VIP Pass Upgrade 2.png" alt="" loading="lazy">
-                        <p id="seasonPass2Level">Level: 0/100</p>
-                        <button class="permshopbutton" id="seasonPass2Button" style="border: 2px solid orange"></button>
-                    </div>
-                    <div>
-                        <img id="SeasonPass3" src="Pictures/VIP Pass Upgrade 3.png" alt="" loading="lazy">
-                        <p id="seasonPass3Level">Level: 0/100</p>
-                        <button class="permshopbutton" id="seasonPass3Button" style="border: 2px solid orange"></button>
-                    </div>
-                    <div>
-                        <img id="Chronometer" src="Pictures/Chronometer.png" alt="" loading="lazy">
-                        <p id="chronometerLevel">Level: 0/100</p>
-                        <button class="permshopbutton" id="chronometerButton" style="border: 2px solid red"></button>
-                    </div>
-                    <div>
-                        <img id="InfiniteAscent" src="Pictures/Etherian Staircase.png" alt="" loading="lazy">
-                        <p id="infiniteAscentUpgrade">Not Bought</p>
-                        <button class="permshopbutton" id="infiniteAscentButton" style="border: 2px solid cyan"></button>
-                    </div>
-                </div>
-
+            <div id="actualWrapper">
                 <div id="actualConsumables">
-                    <div id="quarksDisplay">
-                        <img src="Pictures/Quark.png" alt="" width="32px" height="32px" loading="lazy">
-                        <p id="quarkamount">You have 0 Quarks!</p>
-                    </div>
-                    <p id="consumables">Buy Yer' Potions!</p>
+                    <div id="consumables">Buy Yer' Potions!</div>
                     <div id="actualPotionShop">
                         <div>
                             <img id="offeringPotions" src="Pictures/offering potion.png" alt="" loading="lazy">
@@ -2904,33 +2961,144 @@
                             <button class="consumablebutton" id="useobtainiumpotion" style="border: 2px solid blue">USE 1 [+2hr]</button>
                         </div>
                     </div>
+                    <div id="quarksDisplay">
+                        <img src="Pictures/Quark.png" alt="" width="32px" height="32px" loading="lazy">
+                        <p id="quarkamount">You have 0 Quarks!</p>
+                    </div>
                 </div>
-            </div>
-
-            <div id="shopButtons">
-                <button id="resetShopUpgrades" style="border: 2px solid orangered; color: white">Reset Perm Shop [Cost: 15 Quarks]</button>
-                <button id="toggleConfirmShop" style="border: 2px solid white">Shop Confirmations: ON</button>
-            </div>
-
-            <div id="shopHovers">
-                <p style="color: white; font-size: 1.2em;">Hover over each portion of the shop to see what each upgrade does!</p>
-                <p id="quarkdescription" style="color:plum"></p>
-                <p id="quarkcost" style="color: cyan"></p>
-                <p id="quarkeffect" style="color: limegreen"></p>
+                <div id="actualShopContainer">
+                    <div id="shoptop">Welcome to the Quark Shop. You can't believe what's in stock!</div>
+                    <div id="actualShop">
+                        <div>
+                            <img id="offeringEX" src="Pictures/Offering Upgrade.png" alt="" loading="lazy">
+                            <p id="offeringEXLevel">Level: 0/5</p>
+                            <button class="permshopbutton" id="offeringEXButton" style="border: 2px solid orange">Upgrade for 150 Quarks</button>
+                        </div>
+                        <div>
+                            <img id="offeringAuto" src="Pictures/Offering Auto Upgrade.png" alt="" loading="lazy">
+                            <p id="offeringAutoLevel">Level: 0/5</p>
+                            <button class="permshopbutton" id="offeringAutoButton" style="border: 2px solid orange">Upgrade for 150 Quarks</button>
+                        </div>
+                        <div>
+                            <img id="obtainiumEX" src="Pictures/Obtainium Upgrade.png" alt="" loading="lazy">
+                            <p id="obtainiumEXLevel">Level: 0/5</p>
+                            <button class="permshopbutton" id="obtainiumEXButton" style="border: 2px solid blue">Upgrade for 150 Quarks</button>
+                        </div>
+                        <div>
+                            <img id="obtainiumAuto" src="Pictures/Obtainium Auto Upgrade.png" alt="" loading="lazy">
+                            <p id="obtainiumAutoLevel">Level: 0/5</p>
+                            <button class="permshopbutton" id="obtainiumAutoButton" style="border: 2px solid blue">Upgrade for 150 Quarks</button>
+                        </div>
+                        <div>
+                            <img id="instantChallenge" src="Pictures/Instant Challenge.png" alt="" loading="lazy">
+                            <p id="instantChallengeLevel">Not Bought</p>
+                            <button class="permshopbutton" id="instantChallengeButton" style="border: 2px solid plum">Buy for 300 Quarks</button>
+                        </div>
+                        <div class='chal8'>
+                            <img id="antSpeed" src="Pictures/antspeed.png" alt="" loading="lazy">
+                            <p id="antSpeedLevel">Level: 0/3</p>
+                            <button class="permshopbutton" id="antSpeedButton" style="border: 2px solid maroon">Upgrade for 200 Quarks</button>
+                        </div>
+                        <div class='chal8'>
+                            <img id="cashGrab" src="Pictures/cashgrab.png" alt="" loading="lazy">
+                            <p id="cashGrabLevel">Level: 0/5</p>
+                            <button class="permshopbutton" id="cashGrabButton" style="border: 2px solid limegreen">Upgrade for 100 Quarks</button>
+                        </div>
+                        <div class='chal9'>
+                            <img id="shopTalisman" src="Pictures/shoptalisman.png" alt="" loading="lazy">
+                            <p id="shopTalismanLevel">Not Bought</p>
+                            <button class="permshopbutton" id="shopTalismanButton" style="border: 2px solid chartreuse">Buy for 1,500 Quarks</button>
+                        </div>
+                        <div class='ascendunlock'>
+                            <img id="seasonPass" src="Pictures/VIP Pass Upgrade.png" alt="" loading="lazy">
+                            <p id="seasonPassLevel">Level: 0/5</p>
+                            <button class="permshopbutton" id="seasonPassButton" style="border: 2px solid orange"></button>
+                        </div>
+                        <div class='ascendunlock'>
+                            <img id="challengeExtension" src="Pictures/Challenge Upgrade.png" alt="" loading="lazy">
+                            <p id="challengeExtensionLevel">Level: 0/5</p>
+                            <button class="permshopbutton" id="challengeExtensionButton" style="border: 2px solid gray"></button>
+                            
+                        </div>
+                        <div class='ascendunlock'>
+                            <img id="challengeTome" src="Pictures/Challenge 10 Tome Upgrade.png" alt="" loading="lazy">
+                            <p id="challengeTomeLevel">Level: 0/5</p>
+                            <button class="permshopbutton" id="challengeTomeButton" style="border: 2px solid gold"></button>
+                        </div>
+                        <div class='ascendunlock'>
+                            <img id="cubeToQuark" src="Pictures/Cube Quark Upgrade.png" alt="" loading="lazy">
+                            <p id="cubeToQuarkLevel">Not Bought</p>
+                            <button class="permshopbutton" id="cubeToQuarkButton" style="border: 2px solid yellow"></button>
+                        </div>
+                        <div class='chal11'>
+                            <img id="tesseractToQuark" src="Pictures/Tesseract Quark Upgrade.png" alt="" loading="lazy">
+                            <p id="tesseractToQuarkLevel">Not Bought</p>
+                            <button class="permshopbutton" id="tesseractToQuarkButton" style="border: 2px solid darkorchid"></button>
+                        </div>
+                        <div class='chal13'>
+                            <img id="hypercubeToQuark" src="Pictures/Hypercube Quark Upgrade.png" alt="" loading="lazy">
+                            <p id="hypercubeToQuarkLevel">Not Bought</p>
+                            <button class="permshopbutton" id="hypercubeToQuarkButton" style="border: 2px solid red"></button>
+                        </div>
+                        <div class='chal14'>
+                            <img id="seasonPass2" src="Pictures/VIP Pass Upgrade 2.png" alt="" loading="lazy">
+                            <p id="seasonPass2Level">Level: 0/100</p>
+                            <button class="permshopbutton" id="seasonPass2Button" style="border: 2px solid orange"></button>
+                        </div>
+                        <div class='chal14'>
+                            <img id="seasonPass3" src="Pictures/VIP Pass Upgrade 3.png" alt="" loading="lazy">
+                            <p id="seasonPass3Level">Level: 0/100</p>
+                            <button class="permshopbutton" id="seasonPass3Button" style="border: 2px solid orange"></button>
+                        </div>
+                        <div class='chal12'>
+                            <img id="chronometer" src="Pictures/Chronometer.png" alt="" loading="lazy">
+                            <p id="chronometerLevel">Level: 0/100</p>
+                            <button class="permshopbutton" id="chronometerButton" style="border: 2px solid red"></button>
+                        </div>
+                        <div class='chal14'>
+                            <img id="infiniteAscent" src="Pictures/Etherian Staircase.png" alt="" loading="lazy">
+                            <p id="infiniteAscentLevel">Not Bought</p>
+                            <button class="permshopbutton" id="infiniteAscentButton" style="border: 2px solid cyan"></button>
+                        </div>
+                        <div>
+                            <img id="calculator" src="Pictures/Calculator.png" alt="" loading="lazy">
+                            <p id="calculatorLevel">Not Bought</p>
+                            <button class="permshopbutton" id="calculatorButton" style="border: 2px solid purple"></button>
+                        </div>
+                        <div class='chal11'>
+                            <img id="calculator2" src="Pictures/Calculator2.png" alt="" loading="lazy">
+                            <p id="calculator2Level"></p>
+                            <button class="permshopbutton" id="calculator2Button" style="border: 2px solid purple"></button>
+                        </div>
+                        <div class='chal13'>
+                            <img id="calculator3" src="Pictures/Calculator3.png" alt="" loading="lazy">
+                            <p id="calculator3Level"></p>
+                            <button class="permshopbutton" id="calculator3Button" style="border: 2px solid purple;"></button>
+                        </div>
+                        <div class='chal14'>
+                            <img id="constantEX" src="Pictures/ConstantExtension.png" alt="" loading="lazy">
+                            <p id="constantEXLevel"></p>
+                            <button class="permshopbutton" id="constantEXButton" style="border: 2px solid gray;"></button>
+                        </div>
+                        <div class='hepteracts'>
+                            <img id="powderEX" src="Pictures/Powder Gain Upgrade.png" alt="" loading="lazy">
+                            <p id="powderEXLevel"></p>
+                            <button class="permshopbutton" id="powderEXButton" style="border: 2px solid red;"></button>
+                        </div>
+                    </div>
+                    <div id="shopButtons">
+                        <button id="resetShopUpgrades" style="border: 2px solid orangered; color: white">Reset Perm Shop [Cost: 15 Quarks]</button>
+                        <button id="toggleConfirmShop" style="border: 2px solid white">Shop Confirmations: ON</button>
+                    </div>
+                    <div id="shopHovers">
+                        <p style="color: white; font-size: 1.2em;">Hover over each portion of the shop to see what each upgrade does!</p>
+                        <p id="quarkdescription" style="color:plum"></p>
+                        <p id="quarkRefundable" style="color: goldenrod"></p>
+                        <p id="quarkeffect" style="color: limegreen"></p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
-
-    <link rel="stylesheet" href="Synergism.css">
-    <script src="./dist/bundle.js"></script>
-
-    <script type='text/javascript'>
-        if(typeof kongregateAPI !== 'undefined') {
-            kongregateAPI.loadAPI(() => {
-                window.kongregate = kongregateAPI.getAPI();
-            });
-        }
-      </script>
     </body>
 </html>
