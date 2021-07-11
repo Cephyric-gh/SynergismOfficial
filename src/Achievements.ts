@@ -803,6 +803,52 @@ export const ascensionAchievementCheck = (i: number, score = 0) => {
     }
 }
 
+
+const achievementGroups: number[][] = [
+    [1, 8, 15, 22, 29],
+    [2, 9, 16, 23, 30],
+];
+
+export const updateAchievementDescriptionProgress = () => {
+    achievementGroups.forEach((group, groupIndex) => {
+        const groupEl = document.getElementById(`achgroup${groupIndex + 1}`);
+        const progress = group.map(i => player.achievements[i] > 0.5);
+        const lastCompleted = progress.lastIndexOf(true);
+        const specialRewards = progress.filter(x => x).map((_, i) => areward(group[i])).filter(x => x.length > 0).join('<br>');
+        const totalAp = progress.filter(x => x).reduce((total, _, i) => total + achievementpointvalues[group[i]], 0);
+        const totalQuarks = progress.filter(x => x).reduce((total, _, i) => total + (achievementpointvalues[group[i]] * (group[i] >= 253 ? 40 : group[i] >= 183 ? 5 : 1)), 0);
+
+        if (lastCompleted >= 0) {
+            groupEl.querySelector('[data-el="completed"]').textContent = adesc[`adesc${group[lastCompleted]}` as keyof typeof adesc];
+
+            if (lastCompleted < group.length - 1) {
+                groupEl.querySelector('[data-el="next"]').textContent = adesc[`adesc${group[lastCompleted + 1]}` as keyof typeof adesc];
+            } else {
+                groupEl.querySelector('[data-el="next"]').textContent = 'Nothing!';
+            }
+        }
+
+        group.forEach((achievement, achievementIndex) => {
+            if (progress[achievementIndex]) {
+                (groupEl.querySelector(`[data-ach="${achievement}"]`) as HTMLElement).style.background = 'green';
+            }
+        });
+
+        groupEl.querySelector('[data-el="rewards"]').textContent = `${totalAp} AP, ${totalQuarks} Quarks!`;
+        const specialRewardsEl = groupEl.querySelector('[data-el="specialRewards"]') as HTMLElement;
+
+        if (specialRewards.length > 0) {
+            specialRewardsEl.innerHTML = `${specialRewards}`;
+        } else {
+            specialRewardsEl.style.display = 'none';
+        }
+    })
+};
+
+
+
+
+
 export const achievementdescriptions = (i: number) => {
     const y = adesc[`adesc${i}` as keyof typeof adesc];
     const z = player.achievements[i] > 0.5 ? ' COMPLETED!' : '';

@@ -19,7 +19,7 @@ import { resetHistoryRenderAllTables } from './History';
 import { calculatePlatonicBlessings } from './PlatonicCubes';
 import { antSacrificePointsToMultiplier, autoBuyAnts, calculateCrumbToCoinExp } from './Ants';
 import { calculatetax } from './Tax';
-import { ascensionAchievementCheck, challengeachievementcheck, achievementaward, resetachievementcheck, buildingAchievementCheck } from './Achievements';
+import { ascensionAchievementCheck, challengeachievementcheck, achievementaward, resetachievementcheck, buildingAchievementCheck, updateAchievementDescriptionProgress } from './Achievements';
 import { reset } from './Reset';
 import { buyMax, buyAccelerator, buyMultiplier, boostAccelerator, buyCrystalUpgrades, buyParticleBuilding, getReductionValue, getCost, buyRuneBonusLevels, buyTesseractBuilding, TesseractBuildings, calculateTessBuildingsInBudget } from './Buy';
 import { autoUpgrades } from './Automation';
@@ -3368,6 +3368,7 @@ export const reloadShit = async (reset = false) => {
     loadSynergy(reset);
     saveSynergy();
     toggleauto();
+    updateAchievementDescriptionProgress();
     revealStuff();
     hideStuff();
     htmlInserts();

@@ -763,6 +763,73 @@ nav li:hover {
 #achievementcolorcode3 { color: crimson; }
 #achievementcolorcode4 { color: gray; }
 
+#achgroups {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+#achgroups > .achgroup {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+#achgroups > .achgroup:not(:first-of-type) {
+    padding-top: 12px;
+    border-top: 1px solid white;
+}
+
+#achgroups > .achgroup img {
+    width: 50px;
+    height: 50px;
+}
+
+#achgroups > .achgroup .achgroupstats {
+    margin-left: 8px;
+    text-align: left;
+}
+
+#achgroups > .achgroup .achgroupstats .achgroupstattitle:after {
+    white-space: pre;
+}
+
+#achgroups > .achgroup .achgroupstats .achgroupcompleted,
+#achgroups > .achgroup .achgroupstats .achgroupnext,
+#achgroups > .achgroup .achgroupstats .achgrouprewards {
+    display: flex;
+    margin: 0;
+}
+
+#achgroups > .achgroup .achgroupstats .achgroupcompleted {
+    color: gold;
+}
+
+#achgroups > .achgroup .achgroupstats .achgroupcompleted .achgroupstattitle:after {
+    content: '  ';
+}
+
+#achgroups > .achgroup .achgroupstats .achgroupnext {
+    color: white;
+}
+
+#achgroups > .achgroup .achgroupstats .achgroupnext .achgroupstattitle:after {
+    content: '            ';
+}
+
+#achgroups > .achgroup .achgroupstats .achgrouprewards {
+    color: limegreen;
+}
+
+#achgroups > .achgroup .achgroupstats .achgrouprewards .achgroupstattitle:after {
+    content: '      ';
+}
+
+#achgroups > .achgroup .achgroupstats .achgrouprewards [data-el] {
+    display: block;
+}
+
 #buyamountcrystal {
     position: absolute;
     top: 0;
